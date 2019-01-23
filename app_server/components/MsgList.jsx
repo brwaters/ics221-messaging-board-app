@@ -3,16 +3,16 @@ const React = require("react");
 const MsgList = (props) => {
   
         return (
-                <table className="Table table-striped table-bordered">
+                <table className="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col" className="col-1">
+                            <th scope="col" className="w-25">
                                 #(msg number)
                             </th>
-                            <th scope="col" className="col-2">
+                            <th scope="col" className="w-25">
                                 Name
                             </th>
-                            <th scope="col" className="col-9">
+                            <th scope="col" className="w-50">
                                 Message
                             </th>
                         </tr>
