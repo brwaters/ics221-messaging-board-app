@@ -9,14 +9,38 @@ class MsgBoard extends React.Component {
       this.addMessage = this.addMessage.bind(this);
     }
 
+    componentDidMount() {
+        fetch('http://localhost:3003/msgs')
+			.then(response=> this.handleHTTPErrors(response))
+			.then(response=> response.json())
+			.then(result=> {
+				this.setState( { messages: result});
+			})
+			.catch(errors=> { 
+				console.log(error);
+			})
+        }
+    
+    handleHTTPErrors(response) {
+        if (!response.ok) throw Error(response.status + ': ' + response.statusText);
+		return response;
+    }
+
     addMessage() {
-        // TO DO MAKE API CALL TO STORE A NEW MESSAGE IN UPDATE VAR MESSAGE
+        let msgs = this.state.messages;
+
+        // add id attribute
+        message.id = msgs.length;
+        // append to array
+        msgs.push(message);
+        // update state var
+        this.setState( { messages: msgs });
     }
   
     render() {
         return (
             <div>
-                <NewMsg addMsgCallback = { this.addMessage} />
+                <NewMsg addMsgCallback = { this.addMessage } />
                 <MsgList messages={ this.state.messages }/>
             </div>
         );
