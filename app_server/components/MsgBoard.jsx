@@ -35,6 +35,18 @@ class MsgBoard extends React.Component {
         msgs.push(message);
         // update state var
         this.setState( { messages: msgs });
+
+        fetch('http://localhost:3003/msgs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(messages)
+        })
+        .then(response=> this.handleHTTPErrors(response))
+        .catch(error=> {
+            console.log(error);
+        })
     }
   
     render() {
