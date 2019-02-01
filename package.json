@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodemon -e js,jsx --exec \"node -r dotenv/config ./bin/www",
+    "start": "nodemon -e js,jsx --exec \"node -r dotenv/config ./bin/www\"",
     "build": "webpack"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^5.4.8",
     "morgan": "~1.9.0",
     "nodemon": "^1.18.9",
     "pug": "2.0.0-beta11",
