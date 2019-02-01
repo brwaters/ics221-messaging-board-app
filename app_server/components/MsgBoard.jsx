@@ -14,7 +14,7 @@ class MsgBoard extends React.Component {
 			.then(response=> this.handleHTTPErrors(response))
 			.then(response=> response.json())
 			.then(result=> {
-				this.setState( { messages: result});
+				this.setState( { messages: result });
 			})
 			.catch(errors=> { 
 				console.log(error);
@@ -26,7 +26,7 @@ class MsgBoard extends React.Component {
 		return response;
     }
 
-    addMessage() {
+    addMessage(message) {
         let msgs = this.state.messages;
 
         // add id attribute
@@ -41,7 +41,7 @@ class MsgBoard extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(messages)
+            body: JSON.stringify(message)
         })
         .then(response=> this.handleHTTPErrors(response))
         .catch(error=> {

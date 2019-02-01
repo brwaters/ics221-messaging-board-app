@@ -18,7 +18,8 @@ const MsgList = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.messages.reverse().map( (message, index) =>
+                        {props.messages.sort((a, b) => a.id - b.id)
+                        .reverse().map( (message, index) =>
                             <tr key={message.id}>
                                 <td>{index+1}</td>
                                 <td>{message.name}</td>

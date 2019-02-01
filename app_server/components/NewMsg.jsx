@@ -3,8 +3,10 @@ const React = require("react");
 class NewMsg extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { name: "" };
-		this.state = { msg: "" };
+		this.state = { name: "", msg: "" };
+		this.handleText = this.handleText.bind(this);
+		this.addMessage = this.addMessage.bind(this);
+
 	}
 	handleText(event) {
 		if (event.target.id === 'name') {
