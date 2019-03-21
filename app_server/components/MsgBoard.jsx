@@ -10,7 +10,7 @@ class MsgBoard extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${process.env.API_URL}`)
+        fetch(`${process.env.API_URL}/msgs`)
             .then(response => this.handleHTTPErrors(response))
             .then(response => response.json())
             .then(result => {
@@ -36,7 +36,7 @@ class MsgBoard extends React.Component {
         // // update state var
         // this.setState( { messages: msgs });
 
-        fetch(`${process.env.API_URL}`, {
+        fetch(`${process.env.API_URL}/msgs`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -16,7 +16,7 @@ function handleHTTPErrors(response) {
 }
 
 const getMessages = (req, res) => {
-    fetch(`${process.env.API_URL}`)
+    fetch(`${process.env.API_URL}/msgs`)
     .then(response=> handleHTTPErrors(response))
     .then(result=> result.json())
     .then(result=> {
