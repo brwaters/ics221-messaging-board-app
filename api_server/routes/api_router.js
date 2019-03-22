@@ -11,6 +11,6 @@ router.route('/msgs')
 
 
 router.post('/users', userAPIController.registerNewUser);
-router.get('/users/login', userAPIController.loginUser);
+router.get('/users/login', passport.authenticate('basic', { session: false }), userAPIController.loginUser);
 
 module.exports = router;

@@ -22,6 +22,7 @@ class Login extends React.Component {
 	}
 
 	login(event) {
+		// console.log(this.state.email);
 		event.preventDefault();
 		// pass control to MsgBoard and send the email and pass the user entered
 		this.props.loginCallback({
@@ -40,7 +41,7 @@ class Login extends React.Component {
 		}
 		return (
 			<div className="card form-group">
-				<form onSubmit={this.Login}>
+				<form onSubmit={this.login}>
 					<div className="form-group">
 						<div className="row ml-2">
 							<label htmlFor="email"
@@ -66,7 +67,7 @@ class Login extends React.Component {
 								<div className="col-2">
 									<button type="submit" className="btn btn-primary">
 										Login
-				  </button>
+									</button>
 								</div>
 							</div>
 					</div>
@@ -74,7 +75,7 @@ class Login extends React.Component {
 				<div className="row ml-2 mb-2">
 				<div className="col-5">
 					Not registered? &nbsp;
-			<button type="submit" className="btn btn-secondary" onClick={this.register}>Register</button></div>
+			<button className="btn btn-secondary" onClick={this.register}>Register</button></div>
 				{loginFailText}</div>
 				</div>
 		)
