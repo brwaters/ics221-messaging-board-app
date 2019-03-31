@@ -1,5 +1,5 @@
 {
-  "name": "ics221-mb-new",
+  "name": "bwaters",
   "version": "0.0.2",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
   "dependencies": {
     "acorn": "^6.1.1",
     "bad-words": "^3.0.2",
+    "bcrypt": "^3.0.5",
     "browser-sync": "^2.26.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -20,6 +21,8 @@
     "mongoose": "^5.4.8",
     "morgan": "~1.9.0",
     "nodemon": "^1.18.9",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
     "pug": "2.0.0-beta11",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
