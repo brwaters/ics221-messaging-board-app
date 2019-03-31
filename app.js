@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 //require('./api_server/db');
 
-//var appRouter = require('./app_server/routes/app_router.js');
+var appRouter = require('./app_server/routes/app_router.js');
 //var apiRouter = require('./api_server/routes/api_router.js');
 var app = express();
 
@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 // routes
 app.use('/', appRouter);
-app.use('/api/v1', apiRouter);
+//app.use('/api/v1', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
