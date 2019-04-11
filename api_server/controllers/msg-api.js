@@ -25,23 +25,37 @@ const addNewMessage = (req, res) =>
   });
 
 // PUT Request Handler
-const updateMessage = (req, res) =>
-  messageModel.findOneAndUpdate(
-    { _id: req.params.messageid },
-    { $set: { msg: req.body.msg } },
-    { new: true },
+const updateMessage = (req, res) => {
+  console.log("req.user: " + req.user + " " + "req: " + req.body.name);
+  console.log(req.params);
+  messageModel.findById(
+    {
+      _id: req.params.messageid
+    },
     (err, message) => {
-      console.log("req.user: " + req.user + " " + "req.body" + req.body);
-      if (false /*req.user !== req.body.username*/) {
-        res.status(403).json("This message doesn't belong to you.");
-      }
       if (err) {
-        res.status(400).json(err);
+        res.status(404).json(err);
+        return;
+      }
+      if (message.name == req.user.username) {
+        messageModel.findOneAndUpdate(
+          { _id: req.params.messageid },
+          { $set: { msg: req.body.msg } },
+          { new: true },
+          (err, message) => {
+            if (err) {
+              res.status(400).json(err);
+            } else {
+              res.status(200).json(message);
+            }
+          }
+        );
       } else {
-        res.status(200).json(message);
+        res.status(403).json("Invalid permission");
       }
     }
   );
+};
 
 // DELETE Request Handler
 const deleteMessage = (req, res) =>

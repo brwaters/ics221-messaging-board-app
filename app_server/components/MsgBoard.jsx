@@ -112,7 +112,7 @@ class MsgBoard extends React.Component {
       this.state.userCredentials.password;
     let message_id = message.message_id;
     // console.log("msgboard var: " + message.message_id);
-    console.log(JSON.stringify(this.state.messages));
+    //console.log(JSON.stringify(this.state.messages));
     // console.log(this.state.messages.splice(0, this.state.messages.length - 1, 1));
     fetch(`${process.env.API_URL}/msgs/${message_id}`, {
       method: "DELETE",
