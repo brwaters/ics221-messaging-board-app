@@ -26,8 +26,8 @@ const addNewMessage = (req, res) =>
 
 // PUT Request Handler
 const updateMessage = (req, res) => {
-  console.log("req.user: " + req.user + " " + "req: " + req.body.name);
-  console.log(req.params);
+  // console.log("update func: req.user: " + req.user + " " + "req: " + req.body.name);
+  // console.log(req.params);
   messageModel.findById(
     {
       _id: req.params.messageid
@@ -59,7 +59,7 @@ const updateMessage = (req, res) => {
 
 // DELETE Request Handler
 const deleteMessage = (req, res) => {
-  console.log("req.user: " + req.user + " " + "req: " + req.body.name);
+  console.log("del func: req.user: " + req.user + " " + "req: " + req.body.name);
   console.log(req.params);
   messageModel.findById(
     {
