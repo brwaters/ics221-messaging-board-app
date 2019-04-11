@@ -58,14 +58,44 @@ const updateMessage = (req, res) => {
 };
 
 // DELETE Request Handler
-const deleteMessage = (req, res) =>
-  messageModel.deleteOne({ _id: req.params.messageid }, (err, message) => {
-    if (err) {
-      res.status(400).json(err);
-    } else {
-      res.status(200).json(message);
+const deleteMessage = (req, res) => {
+  console.log("req.user: " + req.user + " " + "req: " + req.body.name);
+  console.log(req.params);
+  messageModel.findById(
+    {
+      _id: req.params.messageid
+    },
+    (err, message) => {
+      if (err) {
+        res.status(404).json(err);
+        return;
+      }
+      if (message.name == req.user.username) {
+        messageModel.deleteOne(
+          { _id: req.params.messageid },
+          (err, message) => {
+            if (err) {
+              res.status(400).json(err);
+            } else {
+              res.status(200).json(message);
+            }
+          }
+        );
+      } else {
+        res.status(403).json("Invalid permission");
+      }
     }
-  });
+  );
+};
+// // DELETE Request Handler
+// const deleteMessage = (req, res) =>
+//   messageModel.deleteOne({ _id: req.params.messageid }, (err, message) => {
+//     if (err) {
+//       res.status(400).json(err);
+//     } else {
+//       res.status(200).json(message);
+//     }
+//   });
 
 module.exports = {
   getAllMessagesOrderedByLastPosted,
