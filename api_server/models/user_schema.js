@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
 	required: true,
 	minlength: 8,
 	maxlength: 50,
-  }
+	}
 });
 
 userSchema.pre('save', function(next) {
@@ -34,7 +34,9 @@ userSchema.pre('save', function(next) {
 	  next(err);
   }); });
 
-  userSchema.methods.verifyPassword = function(inputedPlainTextPassword) { const hashedPassword = this.password;
-	return bcrypt.compare( inputedPlainTextPassword, hashedPassword ); }
+  userSchema.methods.verifyPassword = function(inputedPlainTextPassword) {
+		const hashedPassword = this.password;
+	return bcrypt.compare( inputedPlainTextPassword, hashedPassword );
+}
 
 module.exports = mongoose.model('user', userSchema);

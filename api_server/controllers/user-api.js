@@ -24,7 +24,6 @@ passport.use(new BasicStrategy((email, password, done) => {
 }));
 
 const registerNewUser = (req, res) => {
-	//res.status(200).send('Successful API New User POST Request')
 	userModel
 		.findOne({
 			email: req.body.email
@@ -49,7 +48,7 @@ const registerNewUser = (req, res) => {
 		});
 }
 const loginUser = (req, res) => {
-	res.status(200).json({"api-msg": "Successfully Authenticated"});
+	res.status(200).json(req.user);
 }
 
 module.exports = {

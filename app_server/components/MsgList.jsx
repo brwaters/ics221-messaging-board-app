@@ -1,4 +1,5 @@
 const React = require("react");
+const Message = require("./Message.jsx");
 
 const MsgList = (props) => {
   
@@ -19,11 +20,12 @@ const MsgList = (props) => {
                     </thead>
                     <tbody>
                         {props.messages.map( (message, index) =>
-                            <tr key={message._id}>
-                                <td>{index+1}</td>
-                                <td>{message.name}</td>
-                                <td>{message.msg}</td>
-                            </tr>
+                        <Message key={message._id} username={props.username} message={message} index={index}/>
+                            // <tr key={message._id}>
+                            //     <td>{index+1}</td>
+                            //     <td>{message.name}</td>
+                            //     <td>{message.msg}</td>
+                            // </tr>
                         )}
                     </tbody>
                 </table>

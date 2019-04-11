@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 	dbURI = process.env.MONGO_URL;
   }
 
-mongoose.connect(dbURI, { useNewUrlParser: true, userCreateIndex: true, });
+mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true, });
 
 mongoose.connection.on('connected', () => {
 	console.log('Mongoose connected to ' + dbURI);

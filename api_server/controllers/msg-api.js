@@ -13,6 +13,7 @@ const getAllMessagesOrderedByLastPosted = (req, res) =>
 				res.status(200).json(messages);
 			}
 		});
+
 // POST Request Handler
 const addNewMessage = (req, res) =>
 	messageModel
@@ -24,7 +25,35 @@ const addNewMessage = (req, res) =>
 			}
 		});
 
+// PUT Request Handler
+const updateMessage  = (req, res) =>
+		messageModel
+			.findOneAndUpdate( {_id: req.params.messageid}, { $set: { msg: req.body.msg} }, {new: true}, (err, message) => {
+				console.log("req.user: " + req.user + " " + "req.body" + req.body)
+				if (false /*req.user !== req.body.username*/) {
+					res.status(403).json("This message doesn't belong to you.");
+				}
+				if (err) {
+					res.status(400).json(err);
+				} else {
+					res.status(200).json(message);
+				}
+			});
+
+// DELETE Request Handler
+const deleteMessage  = (req, res) =>
+		messageModel
+		.deleteOne( {_id: req.params.messageid}, (err, message) => {
+				if (err) {
+					res.status(400).json(err);
+				} else {
+					res.status(200).json(message);
+				}
+			});
+
 module.exports = {
 	getAllMessagesOrderedByLastPosted,
-	addNewMessage
+	addNewMessage,
+	updateMessage,
+	deleteMessage
 }

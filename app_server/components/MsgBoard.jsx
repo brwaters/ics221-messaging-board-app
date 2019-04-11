@@ -17,13 +17,15 @@ class MsgBoard extends React.Component {
         password: ""
       },
       registrationForm: false,
-      registrationFail: false
+      registrationFail: false,
+      username: "",
+      userid: ""
     };
     this.addMessage = this.addMessage.bind(this);
     this.login = this.login.bind(this);
     this.register = this.register.bind(this);
     this.addNewUser = this.addNewUser.bind(this);
-    // this.login = this.login.bind(this);
+
   }
 
   login(userCredentials) {
@@ -47,6 +49,7 @@ class MsgBoard extends React.Component {
             loginForm: false,
             loginFail: false
           });
+          return response;
         } else {
           // Credentials are wrong
           this.setState(state => {
@@ -57,6 +60,13 @@ class MsgBoard extends React.Component {
           });
         }
       })
+      .then(result => result.json())
+      .then(result => {
+        this.setState ({
+          username: result.username,
+          userid: result._id
+        })
+      }) 
       .catch(error => {
         console.log(error);
       });
@@ -176,12 +186,12 @@ class MsgBoard extends React.Component {
           />
         );
       } else {
-        form = <NewMsg addMsgCallback={this.addMessage} />;
+        form = <NewMsg username={this.state.username} addMsgCallback={this.addMessage} />;
       }
       return (
         <div>
           {form}
-          <MsgList messages={this.state.messages} />
+          <MsgList username={this.state.username} messages={this.state.messages} />
         </div>
       );
     }
