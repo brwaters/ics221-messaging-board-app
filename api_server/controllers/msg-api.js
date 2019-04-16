@@ -35,6 +35,7 @@ const updateMessage = (req, res) => {
     (err, message) => {
       if (err) {
         res.status(404).json(err);
+        console.log("Didn't find id");
         return;
       }
       if (message.name == req.user.username) {
@@ -45,6 +46,7 @@ const updateMessage = (req, res) => {
           (err, message) => {
             if (err) {
               res.status(400).json(err);
+              console.log("didn't set body");
             } else {
               res.status(200).json(message);
             }

@@ -26,6 +26,7 @@ class MsgBoard extends React.Component {
     this.register = this.register.bind(this);
     this.addNewUser = this.addNewUser.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
   }
 
   login(userCredentials) {
@@ -111,9 +112,6 @@ class MsgBoard extends React.Component {
       ":" +
       this.state.userCredentials.password;
     let message_id = message.message_id;
-    // console.log("msgboard var: " + message.message_id);
-    //console.log(JSON.stringify(this.state.messages));
-    // console.log(this.state.messages.splice(0, this.state.messages.length - 1, 1));
     fetch(`${process.env.API_URL}/msgs/${message_id}`, {
       method: "DELETE",
       headers: {
@@ -130,6 +128,41 @@ class MsgBoard extends React.Component {
         })
       })
     })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  updateMessage(message) {
+    const basicString =
+      this.state.userCredentials.email +
+      ":" +
+      this.state.userCredentials.password;
+       console.log(message);
+    let messageId = message.messageID;
+    let messageBody = message.messageBody;
+    // console.log("the update message id " + message_id + " and the body: " + messageBody);
+    fetch(`${process.env.API_URL}/msgs/${messageId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + btoa(basicString)
+      },
+      body: JSON.stringify({ "msg": `${messageBody}` })
+    })
+      .then(response => this.handleHTTPErrors(response))
+      .then(result => result.json("Successfully updated message."))
+      .then(result => { 
+        this.setState({
+          messages: this.state.messages.filter(function( message ) {
+            if(message._id == messageId) {
+              return message.msg = messageBody;
+            } else {
+            return message;
+            }
+          })
+        })
+      })
       .catch(error => {
         console.log(error);
       });
@@ -220,6 +253,7 @@ class MsgBoard extends React.Component {
           <MsgList
             username={this.state.username}
             messages={this.state.messages}
+            updateMessageCallback={this.updateMessage}
             deleteMessageCallback={this.deleteMessage}
           />
         </div>

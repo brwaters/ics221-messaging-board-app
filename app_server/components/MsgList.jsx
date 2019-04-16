@@ -11,13 +11,13 @@ class MsgList extends React.Component {
       <table className="table table-striped table-bordered">
         <thead>
           <tr>
-            <th scope="col" className="w-25">
+            <th scope="col" className="w-10">
               #(msg number)
             </th>
-            <th scope="col" className="w-25">
+            <th scope="col" className="w-10">
               Name
             </th>
-            <th scope="col" className="w-50">
+            <th scope="col" className="w-80">
               Message
             </th>
           </tr>
@@ -29,6 +29,7 @@ class MsgList extends React.Component {
               username={this.props.username}
               message={message}
               index={index}
+              updateMessageCallback={this.props.updateMessageCallback}
               deleteMessageCallback={this.props.deleteMessageCallback}
             />
           ))}
