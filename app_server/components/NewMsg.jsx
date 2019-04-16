@@ -41,7 +41,7 @@ class NewMsg extends React.Component {
       <form onSubmit={this.addMessage}>
         <div className="form-group">
           <div className="row">
-            <label htmlFor="name" className="col-3 col-form-label">
+            <label htmlFor="name" className="col-1 col-form-label">
               User Name:
             </label>
             <label htmlFor="msg" className="col-7 col-form-label">
@@ -49,8 +49,8 @@ class NewMsg extends React.Component {
             </label>
           </div>
           <div className="row">
-            <div className="col-3">
-              <label id="name" className="badge">
+            <div className="col-1">
+              <label id="name" className="badge badge-secondary">
                 {this.props.username}
               </label>
             </div>

@@ -8,16 +8,12 @@ class MsgList extends React.Component {
 
   render() {
     return (
-      <table className="table table-striped table-bordered">
+      <table className="table table-md table-striped table-bordered">
         <thead>
           <tr>
-            <th scope="col" className="w-10">
-              #(msg number)
-            </th>
-            <th scope="col" className="w-10">
-              Name
-            </th>
-            <th scope="col" className="w-80">
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col" className="w-100" colSpan="4">
               Message
             </th>
           </tr>

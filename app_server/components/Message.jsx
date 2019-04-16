@@ -3,30 +3,34 @@ const React = require("react");
 class Message extends React.Component {
   constructor(props) {
     super(props);
-	this.deleteMessage = this.deleteMessage.bind(this);
-	this.setEditMode = this.setEditMode.bind(this);
-	this.updateMessage = this.updateMessage.bind(this);
-	this.handleText = this.handleText.bind(this);
-	this.state = { msg: "", editMode: false };
+    this.deleteMessage = this.deleteMessage.bind(this);
+    this.setEditMode = this.setEditMode.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
+    this.handleText = this.handleText.bind(this);
+    this.state = { msg: "", editMode: false };
   }
 
   handleText(event) {
-      this.setState({
-        msg: event.target.value
-      });
+    this.setState({
+      msg: event.target.value
+    });
   }
 
   setEditMode(event) {
-	  event.preventDefault();
-	  this.setState({editMode: !this.state.editMode});
+    event.preventDefault();
+    this.setState({ editMode: !this.state.editMode });
   }
 
-  updateMessage(event){
-	  event.preventDefault();
-	  let message_id = this.props.message._id;
-	  let messageBody = this.state.msg
-	  this.props.updateMessageCallback({ messageID: message_id, messageBody: messageBody });
-	  this.setState({editMode: false})
+  updateMessage(event) {
+    event.preventDefault();
+    let message_id = this.props.message._id;
+    let messageBody = this.state.msg;
+    this.props.updateMessageCallback({
+      messageID: message_id,
+      messageBody: messageBody
+    });
+	this.setState({ editMode: false });
+	this.setState({msg : ""});
   }
 
   deleteMessage(event) {
@@ -37,47 +41,68 @@ class Message extends React.Component {
   }
 
   render() {
-	if (this.props.username === this.props.message.name && this.state.editMode) {
-		// If owner of message and editMode true
-		return (
-		  <tr>
-			<td>{this.props.index + 1}</td>
-			<td>{this.props.message.name}</td>
-			<td>{this.props.message.msg}</td>
-			<td>
-				<input id="msg" type="text" className="form-control" placeholder="Edit Message" value={this.state.msg} onChange={this.handleText} />
-				<button className="btn btn-secondary" value={this.state.msg} onClick={this.updateMessage}>Update</button>
-				<button className="btn btn-secondary" onClick={this.setEditMode}>Cancel</button>
+    if (
+      this.props.username === this.props.message.name &&
+      this.state.editMode
+    ) {
+      // If owner of message and editMode true
+      return (
+        <tr>
+          <th scope="row">{this.props.index + 1}</th>
+          <td>{this.props.message.name}</td>
+          <td>{this.props.message.msg}</td>
+          <td>
+            <input
+              id="msg"
+              type="text"
+              placeholder="Edit Message"
+              value={this.state.msg}
+              onChange={this.handleText}
+            />
+          </td>
+          <td>
+            <button
+              className="btn btn-success"
+              value={this.state.msg}
+              onClick={this.updateMessage}
+            >
+              Update
+            </button>
 			</td>
-		  </tr>
-		);
-	}
+			<td>
+            <button className="btn btn-warning" onClick={this.setEditMode}>
+              Cancel
+            </button>
+          </td>
+        </tr>
+      );
+    }
     if (this.props.username === this.props.message.name) {
       // If owner of message
       return (
         <tr>
-          <td>{this.props.index + 1}</td>
+          <th scope="row">{this.props.index + 1}</th>
           <td>{this.props.message.name}</td>
-          <td>{this.props.message.msg}</td>
-			<td>
-              <button className="btn btn-secondary" onClick={this.setEditMode}>
-			  Edit
-			  </button>
-			  </td>
-			  <td>
-              <button className="btn btn-danger" onClick={this.deleteMessage}>
-                Delete
-              </button>
-			  </td>
+          <td colSpan="2" className="w-100">{this.props.message.msg}</td>
+          <td>
+            <button className="btn btn-secondary" onClick={this.setEditMode}>
+              Edit
+            </button>
+          </td>
+          <td>
+            <button className="btn btn-danger" onClick={this.deleteMessage}>
+              Delete
+            </button>
+          </td>
         </tr>
       );
     } else {
       // Else not owner
       return (
         <tr>
-          <td>{this.props.index + 1}</td>
+          <th scope="row">{this.props.index + 1}</th>
           <td>{this.props.message.name}</td>
-          <td>{this.props.message.msg}</td>
+          <td colSpan="3">{this.props.message.msg}</td>
         </tr>
       );
     }
