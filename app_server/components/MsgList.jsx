@@ -8,7 +8,7 @@ class MsgList extends React.Component {
 
   render() {
     return (
-      <table className="table table-md table-striped table-bordered">
+      <table className="table table-striped table-bordered">
         <thead>
           <tr>
             <th scope="col">#</th>

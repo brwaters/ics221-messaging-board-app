@@ -85,9 +85,8 @@ class Message extends React.Component {
         <tr>
           <th scope="row">{this.props.index + 1}</th>
           <td>{this.props.message.name}</td>
-          <td colSpan="2" className="w-100">
-            {this.props.message.msg}
-          </td>
+          <td className="w-100">{this.props.message.msg}</td>
+          <td />
           <td>
             <button className="btn btn-secondary" onClick={this.setEditMode}>
               Edit

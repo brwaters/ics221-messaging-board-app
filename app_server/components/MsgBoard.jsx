@@ -123,9 +123,11 @@ class MsgBoard extends React.Component {
       .then(result => result.json("Successfully deleted all messages."))
       .then(result => {
         this.setState({
-          messages: this.props.messages
+          messages: this.state.messages.filter(function(message) {
+            return null;
+          })
+        });
       })
-    })
       .catch(error => {
         console.log(error);
       });
@@ -148,11 +150,11 @@ class MsgBoard extends React.Component {
       .then(result => result.json("Successfully deleted message."))
       .then(result => {
         this.setState({
-          messages: this.state.messages.filter(function( message ) {
+          messages: this.state.messages.filter(function(message) {
             return message._id !== message_id; //need to remove message at specific id, either delete at index of id, or something
-        })
+          })
+        });
       })
-    })
       .catch(error => {
         console.log(error);
       });
@@ -163,7 +165,7 @@ class MsgBoard extends React.Component {
       this.state.userCredentials.email +
       ":" +
       this.state.userCredentials.password;
-       console.log(message);
+    console.log(message);
     let messageId = message.messageID;
     let messageBody = message.messageBody;
     // console.log("the update message id " + message_id + " and the body: " + messageBody);
@@ -173,20 +175,20 @@ class MsgBoard extends React.Component {
         "Content-Type": "application/json",
         Authorization: "Basic " + btoa(basicString)
       },
-      body: JSON.stringify({ "msg": `${messageBody}` })
+      body: JSON.stringify({ msg: `${messageBody}` })
     })
       .then(response => this.handleHTTPErrors(response))
       .then(result => result.json("Successfully updated message."))
-      .then(result => { 
+      .then(result => {
         this.setState({
-          messages: this.state.messages.filter(function( message ) {
-            if(message._id == messageId) {
-              return message.msg = messageBody;
+          messages: this.state.messages.filter(function(message) {
+            if (message._id == messageId) {
+              return (message.msg = messageBody);
             } else {
-            return message;
+              return message;
             }
           })
-        })
+        });
       })
       .catch(error => {
         console.log(error);
