@@ -61,8 +61,10 @@ const updateMessage = (req, res) => {
 
 // DELETE Request Handler
 const deleteMessage = (req, res) => {
-  console.log("del func: req.user: " + req.user + " " + "req: " + req.body.name);
-  console.log(req.params);
+  // console.log(
+  //   "del func: req.user: " + req.user + " " + "req: " + req.body.name
+  // );
+  // console.log(req.params);
   messageModel.findById(
     {
       _id: req.params.messageid
@@ -89,19 +91,27 @@ const deleteMessage = (req, res) => {
     }
   );
 };
-// // DELETE Request Handler
-// const deleteMessage = (req, res) =>
-//   messageModel.deleteOne({ _id: req.params.messageid }, (err, message) => {
-//     if (err) {
-//       res.status(400).json(err);
-//     } else {
-//       res.status(200).json(message);
-//     }
-//   });
+
+// Delete all messages for admin only
+const deleteAll = (req, res) => {
+  if (req.user.username == "Admin") {
+    messageModel.deleteMany({}, (err, message) => {
+      if (err) {
+        res.status(404).json(err);
+        return;
+      } else {
+        res.status(200).json(message);
+      }
+    });
+  } else {
+    res.status(403).json("Invalid permission");
+  }
+};
 
 module.exports = {
   getAllMessagesOrderedByLastPosted,
   addNewMessage,
   updateMessage,
-  deleteMessage
+  deleteMessage,
+  deleteAll
 };

@@ -25,12 +25,14 @@ class Message extends React.Component {
     event.preventDefault();
     let message_id = this.props.message._id;
     let messageBody = this.state.msg;
-    this.props.updateMessageCallback({
-      messageID: message_id,
-      messageBody: messageBody
-    });
-	this.setState({ editMode: false });
-	this.setState({msg : ""});
+    if (messageBody !== "") {
+      this.props.updateMessageCallback({
+        messageID: message_id,
+        messageBody: messageBody
+      });
+      this.setState({ editMode: false });
+      this.setState({ msg: "" });
+    }
   }
 
   deleteMessage(event) {
@@ -50,7 +52,7 @@ class Message extends React.Component {
         <tr>
           <th scope="row">{this.props.index + 1}</th>
           <td>{this.props.message.name}</td>
-          <td>{this.props.message.msg}</td>
+          <td className="w-100">{this.props.message.msg}</td>
           <td>
             <input
               id="msg"
@@ -68,8 +70,8 @@ class Message extends React.Component {
             >
               Update
             </button>
-			</td>
-			<td>
+          </td>
+          <td>
             <button className="btn btn-warning" onClick={this.setEditMode}>
               Cancel
             </button>
@@ -78,12 +80,14 @@ class Message extends React.Component {
       );
     }
     if (this.props.username === this.props.message.name) {
-      // If owner of message
+      // If owner of message only; editMode not on
       return (
         <tr>
           <th scope="row">{this.props.index + 1}</th>
           <td>{this.props.message.name}</td>
-          <td colSpan="2" className="w-100">{this.props.message.msg}</td>
+          <td colSpan="2" className="w-100">
+            {this.props.message.msg}
+          </td>
           <td>
             <button className="btn btn-secondary" onClick={this.setEditMode}>
               Edit
@@ -102,7 +106,7 @@ class Message extends React.Component {
         <tr>
           <th scope="row">{this.props.index + 1}</th>
           <td>{this.props.message.name}</td>
-          <td colSpan="3">{this.props.message.msg}</td>
+          <td colSpan="4">{this.props.message.msg}</td>
         </tr>
       );
     }

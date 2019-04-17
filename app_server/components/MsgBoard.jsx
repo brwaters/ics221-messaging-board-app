@@ -27,6 +27,7 @@ class MsgBoard extends React.Component {
     this.addNewUser = this.addNewUser.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
+    this.deleteAllMessage = this.deleteAllMessage.bind(this);
   }
 
   login(userCredentials) {
@@ -101,6 +102,30 @@ class MsgBoard extends React.Component {
           });
         }
       })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  deleteAllMessage() {
+    const basicString =
+      this.state.userCredentials.email +
+      ":" +
+      this.state.userCredentials.password;
+    fetch(`${process.env.API_URL}/msgs`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + btoa(basicString)
+      }
+    })
+      .then(response => this.handleHTTPErrors(response))
+      .then(result => result.json("Successfully deleted all messages."))
+      .then(result => {
+        this.setState({
+          messages: this.props.messages
+      })
+    })
       .catch(error => {
         console.log(error);
       });
@@ -244,6 +269,8 @@ class MsgBoard extends React.Component {
           <NewMsg
             username={this.state.username}
             addMsgCallback={this.addMessage}
+            deleteAllMessageCallback={this.deleteAllMessage}
+            userCredentials={this.state.username}
           />
         );
       }
